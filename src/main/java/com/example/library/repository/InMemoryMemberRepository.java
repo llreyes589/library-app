@@ -2,9 +2,7 @@ package main.java.com.example.library.repository;
 
 import main.java.com.example.library.model.Member;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class InMemoryMemberRepository implements MemberRepository {
     private final Map<String, Member> membersById = new HashMap<>();
@@ -17,5 +15,10 @@ public class InMemoryMemberRepository implements MemberRepository {
     @Override
     public void save(Member member) {
         membersById.put(member.getMemberId(), member);
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return new ArrayList<>(membersById.values());
     }
 }
