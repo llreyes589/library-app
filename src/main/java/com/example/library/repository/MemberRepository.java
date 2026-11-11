@@ -9,4 +9,5 @@ public interface MemberRepository {
     void save(Member member);
     Optional<Member> findById(String memberId);
     List<Member> findAll();
+    boolean existsById(String memberId);
 }

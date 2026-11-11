@@ -29,8 +29,8 @@ public class Main {
             switch (choice) {
                 case "1" -> addBook(library);
                 case "2" -> listBooks(library);
-                case "3" -> registerMember(memberRepository);
-                case "4" -> listMembers(memberRepository);
+                case "3" -> registerMember(library);
+                case "4" -> listMembers(library);
                 case "5" -> borrowBook(library);
                 case "6" -> returnBook(library);
                 case "0" -> {
@@ -96,7 +96,7 @@ public class Main {
     }
 
     private static void registerMember(
-            InMemoryMemberRepository memberRepository
+            LibraryService library
     ) {
         System.out.print("Member ID: ");
         String memberId = scanner.nextLine().trim();
@@ -104,15 +104,19 @@ public class Main {
         System.out.print("Name: ");
         String name = scanner.nextLine().trim();
 
-        memberRepository.save(new Member(memberId, name));
-        System.out.println("Member registered successfully.");
+        try {
+            library.registerMember(new Member(memberId, name));
+            System.out.println("Member registered successfully");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
     }
 
     private static void listMembers(
-            InMemoryMemberRepository memberRepository
+            LibraryService library
     ) {
-        var members = memberRepository.findAll();
+        var members = library.getAllMembers();
 
         if (members.isEmpty()) {
             System.out.println("No members registered.");

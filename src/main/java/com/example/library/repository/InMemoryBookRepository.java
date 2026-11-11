@@ -21,4 +21,9 @@ public class InMemoryBookRepository implements BookRepository {
     public List<Book> findAll() {
         return new ArrayList<>(booksByIsbn.values());
     }
+
+    @Override
+    public boolean existsByIsbn(String isbn) {
+        return booksByIsbn.containsKey(isbn);
+    }
 }

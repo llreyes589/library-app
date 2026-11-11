@@ -24,11 +24,30 @@ public class LibraryService {
     }
 
     public void addBook(Book book) {
+        if (bookRepository.existsByIsbn(book.getIsbn())) {
+            throw new IllegalArgumentException(
+                    "A book with this ISBN already exists."
+            );
+        }
+
         bookRepository.save(book);
+    }
+
+    public void registerMember(Member member) {
+        if (memberRepository.existsById(member.getMemberId())) {
+            throw new IllegalArgumentException(
+                    "A member with this ID already exists."
+            );
+        }
+        memberRepository.save(member);
     }
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
     }
 
     public void borrowBook(String memberId, String isbn) {

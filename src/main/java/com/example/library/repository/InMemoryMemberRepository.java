@@ -21,4 +21,9 @@ public class InMemoryMemberRepository implements MemberRepository {
     public List<Member> findAll() {
         return new ArrayList<>(membersById.values());
     }
+
+    @Override
+    public boolean existsById(String memberId) {
+        return membersById.containsKey(memberId);
+    }
 }
