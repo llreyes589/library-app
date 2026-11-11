@@ -74,4 +74,16 @@ public class LibraryService {
         return finePolicy.calculate(daysLate);
 
     }
+
+    public List<Book> searchBook(String keyword) {
+        String search = keyword.toLowerCase();
+
+        return bookRepository.findAll().stream()
+                .filter(book ->
+                        book.getTitle().toLowerCase().contains(search)
+                            || book.getAuthor().toLowerCase().contains(search)
+                            || book.getIsbn().toLowerCase().contains(search)
+                )
+                .toList();
+    }
 }

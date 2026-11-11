@@ -33,6 +33,7 @@ public class Main {
                 case "4" -> listMembers(library);
                 case "5" -> borrowBook(library);
                 case "6" -> returnBook(library);
+                case "7" -> searchBooks(library);
                 case "0" -> {
                     System.out.println("Goodbye!");
                     return;
@@ -50,6 +51,7 @@ public class Main {
         System.out.println("4. List members");
         System.out.println("5. Borrow book");
         System.out.println("6. Return book");
+        System.out.println("7. Search book");
         System.out.println("0. Exit");
         System.out.print("Choose an option: ");
     }
@@ -164,6 +166,29 @@ public class Main {
             System.out.printf("Book returned. Fine: PHP %.2f%n", fine);
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void searchBooks(LibraryService library) {
+        System.out.print("Search keyword: ");
+        String keyword = scanner.nextLine().trim();
+
+        var results = library.searchBook(keyword);
+
+        if (results.isEmpty()) {
+            System.out.println("No books found.");
+            return;
+        }
+
+        System.out.println("\n--- Search Results ---");
+        for (Book book : results) {
+            System.out.printf(
+                    "ISBN: %s | %s by %s | Available: %d%n",
+                    book.getIsbn(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getAvailableCopies()
+            );
         }
     }
 }
