@@ -119,7 +119,7 @@ public class Main {
             return;
         }
 
-        System.out.println("]n-- Members ---");
+        System.out.println("\n-- Members ---");
         for (Member member : members) {
             System.out.printf(
                     "ID: %s | Name: %s | Borrowed: %s%n",
